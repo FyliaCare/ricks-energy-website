@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: ricks-energy-website
+    env: node
+    region: frankfurt # Closest to Ghana
+    plan: free # Change to 'starter' for better performance
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_SITE_URL
+        sync: false # Set this in Render dashboard

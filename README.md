@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ricks Energy Limited - High Performance Website
 
-## Getting Started
+A modern, high-performance website and web application built with Next.js for Ricks Energy Limited, a leading sustainable energy solutions provider.
 
-First, run the development server:
+## 🚀 Features
 
+- **High Performance**: Built with Next.js 14+ App Router and optimized for speed
+- **Modern UI**: Responsive design with Tailwind CSS and Framer Motion animations
+- **TypeScript**: Full type safety throughout the application
+- **SEO Optimized**: Meta tags, structured data, and performance optimizations
+- **Admin Dashboard**: Complete management backend for content and client management
+- **Contact System**: Advanced contact forms with validation
+- **Responsive Design**: Mobile-first approach with excellent UX across all devices
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 14+ (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: Headless UI, Heroicons
+- **Animations**: Framer Motion
+- **Image Optimization**: Next.js Image component with WebP/AVIF support
+- **Performance**: Bundle analyzer, optimized imports
+
+## 📦 Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd ricks-energy-website
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+## 🏗 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/                 # Next.js App Router pages
+│   ├── about/          # About page
+│   ├── admin/          # Admin dashboard
+│   ├── api/            # API routes
+│   ├── contact/        # Contact page
+│   ├── services/       # Services page
+│   └── globals.css     # Global styles
+├── components/         # Reusable components
+│   ├── layout/         # Layout components (Header, Footer)
+│   └── ui/             # UI components (Button, Card, etc.)
+├── data/               # Static data and content
+├── lib/                # Utility functions
+└── types/              # TypeScript type definitions
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Vercel (Recommended)
 
-## Deploy on Vercel
+1. Push your code to GitHub
+2. Import your repository on [Vercel](https://vercel.com)
+3. Vercel will automatically deploy your application
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Other Platforms
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The application can be deployed on any platform that supports Node.js:
+
+- **Netlify**: Use `npm run build` and deploy the `out` folder
+- **AWS Amplify**: Connect your GitHub repository
+- **Railway**: Connect your repository for automatic deployments
+
+## 📊 Performance Features
+
+- **Image Optimization**: WebP/AVIF formats with optimized loading
+- **Code Splitting**: Automatic code splitting for optimal bundle sizes
+- **Prefetching**: Intelligent prefetching of critical resources
+- **Compression**: Gzip/Brotli compression enabled
+- **Caching**: Optimized caching strategies for static assets
+- **Bundle Analysis**: Use `npm run analyze` to analyze bundle size
+
+## 🔧 Development
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run analyze` - Analyze bundle size
+
+## 📱 Features Overview
+
+### Public Website
+- **Homepage**: Company overview with animated sections
+- **About**: Company history, mission, and values
+- **Services**: Detailed service offerings with interactive cards
+- **Contact**: Advanced contact form with validation
+- **Responsive Design**: Optimized for all screen sizes
+
+### Admin Dashboard
+- **Overview**: Key metrics and statistics
+- **Contact Management**: View and manage form submissions
+- **Project Tracking**: Monitor project progress
+- **Content Management**: Update company information
+- **Analytics**: Performance insights
+
+Built with ❤️ for Ricks Energy Limited - Powering Tomorrow with Sustainable Energy Solutions
