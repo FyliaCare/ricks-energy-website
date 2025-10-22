@@ -68,7 +68,7 @@
    **Basic Settings:**
    - **Name:** `ricks-energy-website` (or your preferred name)
    - **Region:** `Frankfurt (EU Central)` (closest to Ghana)
-   - **Branch:** `main`
+   - **Branch:** `main` (or `master` - both are available)
    - **Root Directory:** (leave blank)
    
    **Build & Deploy:**

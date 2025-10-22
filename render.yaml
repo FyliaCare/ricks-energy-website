@@ -3,6 +3,7 @@ services:
     name: ricks-energy-website
     env: node
     region: frankfurt # Closest to Ghana
+    branch: main # Use main branch (same as master)
     plan: free # Change to 'starter' for better performance
     buildCommand: npm install && npm run build
     startCommand: npm start
