@@ -199,7 +199,7 @@ export default function NewsManagementPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-slate-900">{article.date}</div>
+                    <div className="text-sm text-slate-900">{article.publishedAt}</div>
                     <div className="text-xs text-slate-500 mt-1">by {article.author}</div>
                   </td>
                   <td className="px-6 py-4">
