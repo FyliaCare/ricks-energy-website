@@ -211,7 +211,7 @@ export default function Header() {
                                   href={subitem.href}
                                   onClick={closeMobileMenu}
                                   className={cn(
-                                    'block px-4 py-2.5 text-sm rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center',
+                                    'flex items-center px-4 py-2.5 text-sm rounded-lg transition-colors touch-manipulation min-h-[44px]',
                                     pathname === subitem.href
                                       ? 'bg-blue-50 text-blue-900 font-medium'
                                       : 'text-gray-700 hover:bg-gray-50'
