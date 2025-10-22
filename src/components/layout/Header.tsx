@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { preventScroll } from '@/lib/responsive-utils';
 
@@ -39,11 +40,6 @@ export default function Header() {
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
     setExpandedMenu(null);
-  };
-
-  const handleMenuToggle = () => {
-    console.log('Menu toggle clicked, current state:', mobileMenuOpen);
-    setMobileMenuOpen(true);
   };
 
   return (
@@ -121,7 +117,7 @@ export default function Header() {
             <button
               type="button"
               className="inline-flex items-center justify-center rounded-lg p-2.5 text-gray-700 hover:bg-gray-100 transition-colors min-h-[44px] min-w-[44px] touch-manipulation"
-              onClick={handleMenuToggle}
+              onClick={() => setMobileMenuOpen(true)}
               aria-label="Open main menu"
             >
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -131,18 +127,27 @@ export default function Header() {
       </nav>
 
       {/* Mobile Navigation */}
-      {mobileMenuOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm lg:hidden"
-            onClick={closeMobileMenu}
-          />
-          
-          {/* Mobile Menu Panel */}
-          <div
-            className="fixed right-0 top-0 z-[101] h-full w-full max-w-sm bg-white shadow-2xl overflow-y-auto lg:hidden"
-          >
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm lg:hidden"
+              onClick={closeMobileMenu}
+            />
+            
+            {/* Mobile Menu Panel */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="fixed right-0 top-0 z-[101] h-full w-full max-w-sm bg-white shadow-2xl overflow-y-auto lg:hidden"
+            >
               {/* Mobile Menu Header */}
               <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-gray-200">
                 <Link href="/" onClick={closeMobileMenu} className="flex items-center gap-2">
@@ -183,28 +188,41 @@ export default function Header() {
                           )}
                         >
                           <span>{item.name}</span>
-                          <ChevronDownIcon className="h-5 w-5" />
+                          <motion.div
+                            animate={{ rotate: expandedMenu === item.name ? 180 : 0 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <ChevronDownIcon className="h-5 w-5" />
+                          </motion.div>
                         </button>
                         
-                        {expandedMenu === item.name && (
-                          <div className="ml-4 space-y-1">
-                            {item.submenu.map((subitem) => (
-                              <Link
-                                key={subitem.name}
-                                href={subitem.href}
-                                onClick={closeMobileMenu}
-                                className={cn(
-                                  'flex items-center px-4 py-2.5 text-sm rounded-lg transition-colors touch-manipulation min-h-[44px]',
-                                  pathname === subitem.href
-                                    ? 'bg-blue-50 text-blue-900 font-medium'
-                                    : 'text-gray-700 hover:bg-gray-50'
-                                )}
-                              >
-                                {subitem.name}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
+                        <AnimatePresence>
+                          {expandedMenu === item.name && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="overflow-hidden ml-4 space-y-1"
+                            >
+                              {item.submenu.map((subitem) => (
+                                <Link
+                                  key={subitem.name}
+                                  href={subitem.href}
+                                  onClick={closeMobileMenu}
+                                  className={cn(
+                                    'flex items-center px-4 py-2.5 text-sm rounded-lg transition-colors touch-manipulation min-h-[44px]',
+                                    pathname === subitem.href
+                                      ? 'bg-blue-50 text-blue-900 font-medium'
+                                      : 'text-gray-700 hover:bg-gray-50'
+                                  )}
+                                >
+                                  {subitem.name}
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </>
                     ) : (
                       <Link
@@ -234,7 +252,7 @@ export default function Header() {
                   Get a Free Quote
                 </Link>
               </div>
-            </div>
+            </motion.div>
           </>
         )}
       </AnimatePresence>
