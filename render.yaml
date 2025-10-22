@@ -6,7 +6,7 @@ services:
     branch: main # Use main branch (same as master)
     plan: free # Change to 'starter' for better performance
     buildCommand: npm install && npm run build
-    startCommand: npm start
+    startCommand: npm run start -- -p ${PORT:-10000}
     autoDeploy: true
     envVars:
       - key: NODE_ENV
