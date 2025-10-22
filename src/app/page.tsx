@@ -1,9 +1,7 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { 
   CheckCircleIcon,
@@ -30,7 +28,7 @@ const DynamicStatCard = dynamic(() => import('@/components/StatCard'), {
 });
 
 // Icon mapping for services
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   WrenchScrewdriverIcon,
   CpuChipIcon,
   ShieldCheckIcon,
@@ -114,7 +112,7 @@ export default function Home() {
               </div>
               
               <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-                Powering Africa's
+                Powering Africa&apos;s
                 <span className="block text-transparent bg-clip-text bg-linear-to-r from-amber-400 to-orange-500">
                   Energy Excellence
                 </span>
@@ -194,7 +192,7 @@ export default function Home() {
           >
             <h2 className="text-base font-semibold text-amber-600 mb-3">Why Choose Us</h2>
             <p className="text-4xl font-bold text-slate-900 mb-4">
-              Africa's Trusted Energy Services Partner
+              Africa&apos;s Trusted Energy Services Partner
             </p>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Combining international standards with deep African expertise to deliver exceptional results across the continent
@@ -382,7 +380,7 @@ export default function Home() {
                 Ready to Start Your Next Project?
               </h2>
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                Partner with Ghana's leading Oil & Gas service provider. 
+                Partner with Ghana&apos;s leading Oil & Gas service provider. 
                 Get expert consultation and competitive quotes for your project today.
               </p>
               

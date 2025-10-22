@@ -39,7 +39,7 @@ export default function StatCard({ stat, index }: {
     name: string; 
     value: number; 
     suffix: string; 
-    icon: any; 
+    icon: React.ComponentType<{ className?: string }>; 
     isText?: boolean 
   }; 
   index: number 
