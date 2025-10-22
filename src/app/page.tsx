@@ -1,9 +1,10 @@
 'use client';
 
-import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { 
   CheckCircleIcon,
   WrenchScrewdriverIcon,
@@ -20,36 +21,13 @@ import {
 } from '@heroicons/react/24/outline';
 import { companyData, services } from '@/data/company';
 import { Button } from '@/components/ui/Button';
+import { organizationSchema, localBusinessSchema, servicesOfferedSchema } from '@/lib/structured-data';
 
-// Counter animation hook
-function useCounter(target: number, duration: number = 2) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true });
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    let startTime: number;
-    let animationFrame: number;
-
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / (duration * 1000), 1);
-      
-      setCount(Math.floor(progress * target));
-
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate);
-      }
-    };
-
-    animationFrame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrame);
-  }, [isInView, target, duration]);
-
-  return { count, ref };
-}
+// Dynamically import heavy components with loading states
+const DynamicStatCard = dynamic(() => import('@/components/StatCard'), {
+  loading: () => <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 animate-pulse h-32" />,
+  ssr: false,
+});
 
 // Icon mapping for services
 const iconMap: Record<string, any> = {
@@ -95,50 +73,31 @@ const whyChooseUs = [
   },
 ];
 
-// Stat Card Component with counting animation
-function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
-  const { count, ref } = useCounter(stat.value, 2.5);
-  
-  return (
-    <motion.div
-      ref={ref}
-      key={stat.name}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-      className="group bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/20 hover:border-amber-400/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
-    >
-      <div className="relative">
-        <stat.icon className="h-8 w-8 text-amber-400 mb-3 group-hover:scale-110 transition-transform duration-300" />
-        <div className="text-4xl font-bold text-white mb-2">
-          {stat.isText ? (
-            <span>Zero{stat.suffix}</span>
-          ) : (
-            <>
-              {count}
-              <span className="text-amber-400">{stat.suffix}</span>
-            </>
-          )}
-        </div>
-        <div className="text-sm text-gray-300 group-hover:text-white transition-colors">{stat.name}</div>
-        
-        {/* Decorative glow effect */}
-        <div className="absolute -inset-1 bg-linear-to-r from-amber-500/0 via-amber-500/20 to-amber-500/0 rounded-2xl opacity-0 group-hover:opacity-100 blur transition-opacity duration-500 -z-10"></div>
-      </div>
-    </motion.div>
-  );
-}
-
 export default function Home() {
   return (
-    <div className="overflow-hidden bg-white">
-      {/* Hero Section - Modern with Overlay */}
-      <section className="relative min-h-[90vh] flex items-center">
-        {/* Background with overlay */}
-        <div className="absolute inset-0 bg-linear-to-br from-slate-900 via-blue-900 to-slate-800">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIxMjEyMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-20"></div>
-          <div className="absolute inset-0 bg-linear-to-t from-slate-900/50 via-transparent to-transparent"></div>
-        </div>
+    <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesOfferedSchema) }}
+      />
+      
+      <div className="overflow-hidden bg-white">
+        {/* Hero Section - Modern with Overlay */}
+        <section className="relative min-h-[90vh] flex items-center">
+          {/* Background with overlay */}
+          <div className="absolute inset-0 bg-linear-to-br from-slate-900 via-blue-900 to-slate-800">
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIxMjEyMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-20"></div>
+            <div className="absolute inset-0 bg-linear-to-t from-slate-900/50 via-transparent to-transparent"></div>
+          </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 py-32 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -205,7 +164,7 @@ export default function Home() {
               className="grid grid-cols-2 gap-4"
             >
               {stats.map((stat, index) => (
-                <StatCard key={stat.name} stat={stat} index={index} />
+                <DynamicStatCard key={stat.name} stat={stat} index={index} />
               ))}
             </motion.div>
           </div>
@@ -500,5 +459,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }
